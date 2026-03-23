@@ -1,3 +1,8 @@
+bun.lock
+.claude
+.agents
+dist
+
 # prod
 dist/
 

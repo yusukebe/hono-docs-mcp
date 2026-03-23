@@ -1,21 +1,45 @@
-```txt
-npm install
-npm run dev
+# hono-docs-mcp
+
+An MCP server built with Hono that provides search and retrieval of [Hono](https://hono.dev) documentation.
+
+## Tools
+
+### `search`
+
+Search Hono documentation via Algolia.
+
+- `query` (string, required) — Search query
+- `limit` (number, optional, default: 5) — Number of results (1–20)
+
+### `docs`
+
+Fetch Hono documentation content as Markdown.
+
+- `path` (string, optional) — Documentation path (e.g., `docs/concepts/motivation`)
+- Returns `llms.txt` if no path is provided
+
+## Setup
+
+```sh
+bun install
 ```
 
-```txt
-npm run deploy
+Create a `.env` file:
+
+```sh
+ALGOLIA_APP_ID=your_algolia_app_id
+ALGOLIA_API_KEY=your_algolia_api_key
 ```
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+## Development
 
-```txt
-npm run cf-typegen
+```sh
+bun run dev
 ```
 
-Pass the `CloudflareBindings` as generics when instantiation `Hono`:
+## Deploy
 
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>()
+```sh
+wrangler secret bulk .env
+bun run deploy
 ```
