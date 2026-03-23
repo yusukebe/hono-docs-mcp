@@ -24,17 +24,12 @@ interface AlgoliaResponse {
   hits: AlgoliaHit[]
 }
 
-type Bindings = {
-  ALGOLIA_APP_ID: string
-  ALGOLIA_API_KEY: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono<{ Bindings: CloudflareBindings }>()
 
 const transport = new StreamableHTTPTransport()
 let server: McpServer | null = null
 
-function createServer(env: Bindings) {
+function createServer(env: CloudflareBindings) {
   const server = new McpServer({ name: 'hono-docs', version: '1.0.0' })
 
   server.registerTool(
